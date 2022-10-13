@@ -1,29 +1,25 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import GamesCard from '../components/GamesCard/GamesCard';
-import './Tab1.css';
+import User from '../../components/User/User';
+import './Tab3.css';
 
-const Tab1: React.FC = () => {
+const Tab3: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Games</IonTitle>
+          <IonTitle>Profile</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Games</IonTitle>
+            <IonTitle size="large">Profile</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <GamesCard/>
-        <br></br>
-        <br></br>
-        <br></br>
-        <GamesCard/>
+      <User/>
       </IonContent>
     </IonPage>
   );
 };
 
-export default Tab1;
+export default Tab3;

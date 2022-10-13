@@ -17,7 +17,7 @@ import {
   IonLabel,
   IonButton,
 } from "@ionic/react";
-import { pin, logOutOutline, wine, warning, walk } from "ionicons/icons";
+import { scan, informationCircleOutline } from "ionicons/icons";
 
 const GamesCard: React.FC = () => {
   return (
@@ -40,8 +40,16 @@ const GamesCard: React.FC = () => {
               aperiam at similique soluta, atque voluptatem corrupti ea ipsa
               vitae omnis reprehenderit veniam obcaecati! Eum, quo.
             </IonCardContent>
-              <IonButton size="small">Default</IonButton>
-              <IonButton size="small">Default</IonButton>
+            <div className="buttons">
+              <IonButton href='/games' size="small">
+                <IonIcon icon={informationCircleOutline} slot="start" />
+                Details
+              </IonButton>
+              <IonButton size="small">
+                <IonIcon icon={scan} slot="start" />
+                Scan
+              </IonButton>
+            </div>
           </IonCardHeader>
         </IonCard>
       </IonContent>

@@ -1,5 +1,5 @@
 import "./User.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   IonAvatar,
   IonContent,
@@ -9,17 +9,40 @@ import {
   IonToolbar,
   IonCard,
   IonCardHeader,
-  IonCardSubtitle,
   IonCardTitle,
   IonCardContent,
   IonItem,
   IonIcon,
   IonLabel,
-  IonButton,
 } from "@ionic/react";
-import { pin, logOutOutline, wine, warning, walk } from "ionicons/icons";
+import { logOutOutline } from "ionicons/icons";
+import { getAuth } from "firebase/auth";
+import { doc, DocumentData, getDoc } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 
 const User: React.FC = () => {
+  const [user, setUser] = useState<DocumentData>();
+  const auth = getAuth();
+  const fireUser = auth.currentUser
+
+  const getUserdetails = async () => {
+    if(fireUser){
+    const docRef = doc(db, "User", fireUser.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setUser(docSnap.data());
+      console.log(docSnap.data())
+    } else {
+      console.log("No such document!");
+    }
+  }
+  };
+
+  useEffect(() => {
+    getUserdetails();
+  }, []);
+
   return (
     <IonPage>
       <IonHeader>
@@ -30,17 +53,17 @@ const User: React.FC = () => {
       <IonContent>
         <IonCard>
           <IonCardHeader>
-            <IonAvatar class="avatar">
-              <img src="assets/icon.png" alt="" />
-            </IonAvatar>
+            {user &&<IonAvatar class="avatar">
+              <img src={user.profilrPic} alt="" />
+            </IonAvatar>}
           </IonCardHeader>
           <IonCardHeader>
-            <IonCardTitle className="ion-text-center">
-              Adam Pithenwala
-            </IonCardTitle>
-            <IonCardContent className="ion-text-center">
-              adampithewan@gmail.com
-            </IonCardContent>
+            {user && <IonCardTitle className="ion-text-center">
+              {user.name}
+            </IonCardTitle>}
+            {user &&<IonCardContent className="ion-text-center">
+            {user.email}
+            </IonCardContent>}
           </IonCardHeader>
         </IonCard>
 
@@ -52,7 +75,7 @@ const User: React.FC = () => {
           </IonCardHeader>
 
           <IonCardContent className="ion-text-center">
-            <h1>10,000 Points</h1>
+            {user &&<h1>{user.points} Points</h1>}
           </IonCardContent>
         </IonCard>
 
