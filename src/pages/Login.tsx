@@ -33,7 +33,6 @@ const Login: React.FC = () => {
       });
   };
 
-  // const history = useHistory();
   return (
     <IonPage>
       <IonButton className="login" expand="block" onClick={signInWithGoogle}>
